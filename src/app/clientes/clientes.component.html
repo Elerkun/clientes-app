@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+  Clientes
+  </div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado De Clientes</h5>
+    <div class="my-text-left">
+       <button class="btn btn-rounded btn-primary" [routerLink] ="['/clientes/form']">Crear Clientes </button>
+    </div>
+    <div *ngIf="clientes?.length==0" class="alert alert-info mt-3">
+      No hay datos!
+  </div>
+</div>
+<table class="table" *ngIf="clientes?.length>0 ">
+
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">nombre</th>
+      <th scope="col">apellido</th>
+      <th scope="col">email</th>
+      <th scope="col">fecha</th>
+      <th scope="col">editar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes">
+      <th scope="row"><button class=" btn btn-success btn-sm" [routerLink]="['/clientes/upload', cliente.id]" type="button">{{cliente.id}}</button></th>
+      <td>{{cliente.nombre}}</td>
+      <td>{{cliente.apellido}}</td>
+      <td>{{cliente.email}}</td>
+      <td>{{cliente.createAt}}</td>
+      <td><button class=" btn btn-primary" [routerLink]="['/clientes/form', cliente.id]" type="button" name="Editar">Editar</button></td>
+      <td><button class=" btn btn-danger" (click)='delete(cliente)'>Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>
+<app-paginate *ngIf="paginador" [paginador] = "paginador"></app-paginate>

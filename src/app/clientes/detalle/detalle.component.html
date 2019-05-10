@@ -1,0 +1,34 @@
+<div class ="card bg-dark text-white">
+ <div class ="card-header">{{titulo}}</div>
+   <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <ul *ngIf="cliente" class="list-group text-dark">
+          <li class="list-group-item">{{cliente.nombre}}</li>
+          <li class="list-group-item">{{cliente.apellido}}</li>
+          <li class="list-group-item">{{cliente.email}}</li>
+          <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
+        </ul>
+         <div class="col-sm">
+           <div class="input-group mb-3 bg-white mb-3">
+             <div class="input-group-prepend">
+               <button (click) ="subirFoto()" [disabled] ="!fotoselecionada" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Subir</button>
+             </div>
+             <div class="custom-file">
+               <input (change)="uploadFoto($event)" type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+               <label class="custom-file-label text-dark" for="inputGroupFile03">Choose file</label>
+             </div>
+           </div>
+           <div class="progress" *ngIf="progreso > 0">
+             <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progreso + '%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
+               {{progreso}}%
+             </div>
+           </div>
+           <div class="col-sm mt-5">
+             <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
+           </div>
+         </div>
+       </div>
+    </div>
+  </div>
+</div>

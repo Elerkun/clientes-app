@@ -1,0 +1,64 @@
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+   <li *ngFor="let err of errores">
+     {{err}}
+     </li>
+  </ul>
+<div class ="card bg-dark text-white">
+  <div class ="card-header">{{titulo}}</div>
+  <div class="card-body">
+    <form #clienteForm ="ngForm"><!--(ngSubmit) ="crear()"-->
+      <div class="form-group">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name ="nombre"   #nombre="ngModel"><!-- required minlength="4" -->
+          <div class="alert alert-danger" *ngIf = "nombre.invalid && (nombre.dirty || nombre.touched)" >
+             <div *ngIf="nombre.errors.required">
+               nombre es requerido
+               </div>
+               <div *ngIf="nombre.errors.minlength">
+                 el nombre debe tener minimo 4 letras
+                 </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name ="apellido"   #apellido="ngModel"><!-- required minlength="4" -->
+          <div class="alert alert-danger" *ngIf = "apellido.invalid && (apellido.dirty || apellido.touched)" >
+             <div *ngIf="apellido.errors.required">
+               apellido es requerido
+               </div>
+               <div *ngIf="apellido.errors.minlength">
+                 el apellido debe tener minimo 4 letras
+                 </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-form-label col-sm-2">Email</label>
+        <div class="col-sm-6">
+          <input type="email" class="form-control" [(ngModel)]="cliente.email" name ="email"   #email="ngModel"><!-- required email -->
+          <div class="alert alert-danger" *ngIf = "email.invalid && (email.dirty || email.touched)" >
+             <div *ngIf="email.errors.required">
+               email es requerido
+               </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="createAt" class="col-form-label col-sm-2">Create At</label>
+        <div class="col-sm-6">
+          <input [matDatepicker]="myDatepicker" class="form-control" [(ngModel)]="cliente.createAt" name ="createAt"   #apellido="ngModel" style="display:inline; width: 300px;"><!-- required minlength="4" -->
+          <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+          </div>
+        </div>
+      <button *ngIf ="!cliente.id else elseBlock"  [disabled]="!clienteForm.form.valid" type="submit" class="btn btn-primary" role="button" (click)='create()'>Crear</button>
+      <ng-template #elseBlock>
+        <button type="submit" class="btn btn-primary "role="button" (click)='update()' [disabled]="!clienteForm.form.valid">Update</button>
+      </ng-template>
+    </form>
+
+  </div>
+</div>
